@@ -16,9 +16,11 @@ import org.x3chaos.Utils;
 public class RTDExecutor implements CommandExecutor {
 	private final RTDPlugin main;
 
+	/* Failure messages */
 	private static final String FAILURE_CONSOLE = "This command is only available to players.";
 	private static final String FAILURE_COOLDOWN = "You cannot roll for another %d seconds.";
 
+	/* Error messages */
 	private static final String[] ERROR_SYNTAX = {
 			"You would have rolled for %s, but there was an error.",
 			"Contact your server owner and report a problem with RTD's config.yml.",
@@ -47,9 +49,9 @@ public class RTDExecutor implements CommandExecutor {
 		}
 
 		// Return false if there are any arguments
-		if (args.length != 0)
-			return false;
+		if (args.length != 0) return false;
 
+		/* Execute if above checks have been passed */
 		Player player = (Player) sender;
 		CommandSender console = server.getConsoleSender();
 
@@ -58,6 +60,7 @@ public class RTDExecutor implements CommandExecutor {
 		Boolean success = true;
 		String failedCommand = "";
 
+		// Don't roll if still cooling down
 		long lastRoll = main.getLastRoll(player);
 		if (lastRoll != 0) {
 			lastRoll /= 1000;
@@ -76,51 +79,55 @@ public class RTDExecutor implements CommandExecutor {
 		for (int i = 0; i < commands.size(); i++) {
 			String command = commands.get(i);
 
+			// Replace {player}
 			if (command.contains("{player}")) {
 				String name = player.getDisplayName();
 				command = command.replace("{player}", name);
 			}
 
+			// Replace {world}
 			if (command.contains("{world}")) {
 				String world = player.getWorld().getName();
 				command = command.replace("{world}", world);
 			}
 
+			// Replace {rplayer}
 			if (command.contains("{rplayer}")) {
 				String rplayer = getRandomPlayer();
 				command = command.replace("{rplayer}", rplayer);
 			}
 
+			// Determine command type (default: console)
 			if (command.startsWith("player=") || command.startsWith("console=")) {
 				String[] parts = command.split("=");
 				command = Utils.splitStringArray(parts, 1);
 				typeOfCommand = parts[0];
 			}
 
-			if (command.startsWith("/"))
-				command = command.substring(1);
+			// Remove leading slash if present
+			if (command.startsWith("/")) command = command.substring(1);
 
-			if (typeOfCommand.equals("player")) {
-				success = server.dispatchCommand(sender, command);
-			} else
-				success = server.dispatchCommand(console, command);
+			// Execute command
+			if (typeOfCommand.equals("player")) success = server
+					.dispatchCommand(sender, command);
+			else success = server.dispatchCommand(console, command);
 
+			// If command returned false, log syntax error
 			if (!success) {
 				errorMessage = ERROR_SYNTAX;
 				failedCommand = command;
 				break;
 			}
 
+			// Set last roll to now. Doesn't count if there's an error.
 			main.setLastRoll(player, main.now());
 		}
 
 		// If nothing went wrong, we're done.
-		if (success)
-			return true;
+		if (success) return true;
 
 		// Error is unknown if it's still null
-		if (errorMessage == null)
-			errorMessage = ERROR_UNKNOWN;
+		if (errorMessage == null) errorMessage = ERROR_UNKNOWN;
 
 		// Report any errors to player and log
 		log.severe("Failed to execute command \"" + failedCommand + "\"");
@@ -137,10 +144,21 @@ public class RTDExecutor implements CommandExecutor {
 		return true;
 	}
 
+	/**
+	 * Determines whether the player is still cooling down
+	 * @param lastRoll The player's last roll
+	 * @return Whether the player is still cooling down
+	 */
 	private boolean isCoolingDown(long lastRoll) {
 		return isCoolingDown(lastRoll, main.now());
 	}
 
+	/**
+	 * Determines whether the player is still cooling down
+	 * @param lastRoll The player's last roll
+	 * @param now The current time in millis
+	 * @return Whether the player is still cooling down
+	 */
 	private boolean isCoolingDown(long lastRoll, long now) {
 		long since = now - lastRoll;
 		long cooldown = main.getCooldown();
@@ -148,12 +166,19 @@ public class RTDExecutor implements CommandExecutor {
 		return (since < cooldown);
 	}
 
+	/** Get time left for cooldown
+	 * @param lastRoll The player's last roll
+	 * @return How much time is left
+	 */
 	private long getTimeLeft(long lastRoll) {
 		long since = main.now() - lastRoll;
 		long cooldown = main.getCooldown();
 		return cooldown - since;
 	}
 
+	/** Gets a random player on the server
+	 * @return A random player's display name
+	 */
 	private String getRandomPlayer() {
 		Player[] players = main.getServer().getOnlinePlayers();
 		int randomIndex = new Random().nextInt(players.length);
