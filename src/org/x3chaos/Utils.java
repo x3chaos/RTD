@@ -10,4 +10,8 @@ public class Utils {
 		return result.trim();
 	}
 
+	public static String mergeStringArray(String[] array) {
+		return splitStringArray(array, 0);
+	}
+
 }
