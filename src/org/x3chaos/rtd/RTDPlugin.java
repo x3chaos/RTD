@@ -32,8 +32,7 @@ public class RTDPlugin extends JavaPlugin {
 		executor = new RTDExecutor(this);
 		this.getCommand("rtd").setExecutor(executor);
 
-		this.getConfig().options().copyDefaults(true);
-		this.saveConfig();
+		this.saveDefaultConfig();
 
 		allOutcomes = getAllOutcomes();
 	}
@@ -60,13 +59,14 @@ public class RTDPlugin extends JavaPlugin {
 		return list.get(random);
 	}
 
-	public void setLastRoll(Player player) {
-		player.setMetadata("rtd-lastroll", new FixedMetadataValue(this, now()));
+	public void setLastRoll(Player player, long when) {
+		player.setMetadata("rtd-lastroll", new FixedMetadataValue(this, when));
 	}
 
 	public long getLastRoll(Player player) {
 		List<MetadataValue> list = player.getMetadata("rtd-lastroll");
-		if (list == null) return 0;
+		if (list == null)
+			return 0;
 		for (MetadataValue value : list) {
 			if (value.getOwningPlugin().getName().equals(this.getName()))
 				return value.asLong();

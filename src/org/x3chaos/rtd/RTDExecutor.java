@@ -10,9 +10,7 @@ import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.metadata.FixedMetadataValue;
 import org.x3chaos.Utils;
 
 public class RTDExecutor implements CommandExecutor {
@@ -33,14 +31,10 @@ public class RTDExecutor implements CommandExecutor {
 	Server server;
 	Logger log;
 
-	ConsoleCommandSender console;
-
 	public RTDExecutor(RTDPlugin main) {
 		this.main = main;
 		this.server = main.getServer();
 		this.log = main.getLogger();
-
-		this.console = server.getConsoleSender();
 	}
 
 	@Override
@@ -53,32 +47,27 @@ public class RTDExecutor implements CommandExecutor {
 		}
 
 		// Return false if there are any arguments
-		if (args.length != 0) return false;
+		if (args.length != 0)
+			return false;
 
 		Player player = (Player) sender;
-
-		long lastRoll = main.getLastRoll(player);
-		// If the last roll is defined (see main.getLastRoll(Player))
-		if (lastRoll != 0) {
-			lastRoll /= 1000;
-			long now = main.now() / 1000;
-			long since = now - lastRoll;
-			long cooldown = main.getCooldown();
-
-			// If cooldown has not passed yet
-			if (since < cooldown) {
-				long left = cooldown - since;
-				player.sendMessage(ChatColor.RED
-						+ String.format(FAILURE_COOLDOWN, left));
-				return true;
-			}
-		}
+		CommandSender console = server.getConsoleSender();
 
 		String typeOfCommand = "console";
-
 		String[] errorMessage = null;
 		Boolean success = true;
 		String failedCommand = "";
+
+		long lastRoll = main.getLastRoll(player);
+		if (lastRoll != 0) {
+			lastRoll /= 1000;
+
+			if (isCoolingDown(lastRoll)) {
+				player.sendMessage(ChatColor.RED
+						+ String.format(FAILURE_COOLDOWN, getTimeLeft(lastRoll)));
+				return true;
+			}
+		}
 
 		// Iterate through and execute each command
 		Entry<String, List<String>> outcome = main.getRandomOutcome();
@@ -86,14 +75,20 @@ public class RTDExecutor implements CommandExecutor {
 		List<String> commands = outcome.getValue();
 		for (int i = 0; i < commands.size(); i++) {
 			String command = commands.get(i);
-			command = command.replaceAll("{player}", player.getDisplayName())
-					.replaceAll("{world}", player.getWorld().getName());
+
+			if (command.contains("{player}")) {
+				String name = player.getDisplayName();
+				command = command.replace("{player}", name);
+			}
+
+			if (command.contains("{world}")) {
+				String world = player.getWorld().getName();
+				command = command.replace("{world}", world);
+			}
 
 			if (command.contains("{rplayer}")) {
-				Player[] players = main.getServer().getOnlinePlayers();
-				int randomIndex = new Random().nextInt(players.length);
-				String randomPlayer = players[randomIndex].getDisplayName();
-				command.replaceAll("{rplayer}", randomPlayer);
+				String rplayer = getRandomPlayer();
+				command = command.replace("{rplayer}", rplayer);
 			}
 
 			if (command.startsWith("player=") || command.startsWith("console=")) {
@@ -102,11 +97,13 @@ public class RTDExecutor implements CommandExecutor {
 				typeOfCommand = parts[0];
 			}
 
-			if (command.startsWith("/")) command = command.substring(1);
+			if (command.startsWith("/"))
+				command = command.substring(1);
 
 			if (typeOfCommand.equals("player")) {
-
-			} else success = server.dispatchCommand(console, command);
+				success = server.dispatchCommand(sender, command);
+			} else
+				success = server.dispatchCommand(console, command);
 
 			if (!success) {
 				errorMessage = ERROR_SYNTAX;
@@ -114,17 +111,19 @@ public class RTDExecutor implements CommandExecutor {
 				break;
 			}
 
-			player.setMetadata("rtd-lastroll", new FixedMetadataValue(main,
-					main.now()));
+			main.setLastRoll(player, main.now());
 		}
 
 		// If nothing went wrong, we're done.
-		if (success) return true;
+		if (success)
+			return true;
 
-		// If something went wrong, but the error messages weren't set, an
-		// unknown error occurred.
-		if (errorMessage == null) errorMessage = ERROR_UNKNOWN;
+		// Error is unknown if it's still null
+		if (errorMessage == null)
+			errorMessage = ERROR_UNKNOWN;
 
+		// Report any errors to player and log
+		log.severe("Failed to execute command \"" + failedCommand + "\"");
 		for (int i = 0; i < errorMessage.length; i++) {
 			String message = errorMessage[i];
 			message = String.format(message, outcomeName);
@@ -135,8 +134,30 @@ public class RTDExecutor implements CommandExecutor {
 			}
 		}
 
-		log.severe("Failed to execute command \"" + failedCommand + "\"");
-
 		return true;
 	}
+
+	private boolean isCoolingDown(long lastRoll) {
+		return isCoolingDown(lastRoll, main.now());
+	}
+
+	private boolean isCoolingDown(long lastRoll, long now) {
+		long since = now - lastRoll;
+		long cooldown = main.getCooldown();
+
+		return (since < cooldown);
+	}
+
+	private long getTimeLeft(long lastRoll) {
+		long since = main.now() - lastRoll;
+		long cooldown = main.getCooldown();
+		return cooldown - since;
+	}
+
+	private String getRandomPlayer() {
+		Player[] players = main.getServer().getOnlinePlayers();
+		int randomIndex = new Random().nextInt(players.length);
+		return players[randomIndex].getDisplayName();
+	}
+
 }
