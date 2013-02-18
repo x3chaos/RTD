@@ -1,0 +1,17 @@
+Actually in WikiCreole format, but saved as .txt to preserve text.
+
+1.1.x
+* 1.1.0
+** Removed bug causing config.yml to be overwritten on plugin load
+** Changed command variable format from "$(var)" to "{var}"
+** Added command variables
+*** {world} - Name of player's current world
+*** {rplayer} - A random player on the server, including player
+** Added support for player-executed commands
+
+1.0.x
+* 1.0.1
+** Added cooldown timer
+** Added a bit of color cosmetics
+* 1.0.0
+** Initial release
