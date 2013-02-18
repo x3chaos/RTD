@@ -97,6 +97,11 @@ public class RTDExecutor implements CommandExecutor {
 				command = command.replace("{rplayer}", rplayer);
 			}
 
+			// Replace {rtime:xx-xx}
+			if (command.contains("{rtime:")) {
+				command = rTime(command);
+			}
+
 			// Determine command type (default: console)
 			if (command.startsWith("player=") || command.startsWith("console=")) {
 				String[] parts = command.split("=");
@@ -166,7 +171,8 @@ public class RTDExecutor implements CommandExecutor {
 		return (since < cooldown);
 	}
 
-	/** Get time left for cooldown
+	/**
+	 * Get time left for cooldown
 	 * @param lastRoll The player's last roll
 	 * @return How much time is left
 	 */
@@ -176,13 +182,37 @@ public class RTDExecutor implements CommandExecutor {
 		return cooldown - since;
 	}
 
-	/** Gets a random player on the server
+	/**
+	 * Gets a random player on the server
 	 * @return A random player's display name
 	 */
 	private String getRandomPlayer() {
 		Player[] players = main.getServer().getOnlinePlayers();
 		int randomIndex = new Random().nextInt(players.length);
 		return players[randomIndex].getDisplayName();
+	}
+
+	/**
+	 * Returns the original command, with {rtime} vars replaced
+	 * @param command The original command
+	 * @return The command with {rtime:xx-xx} vars replaced
+	 */
+	private String rTime(String command) {
+		String[] args = command.split(" ");
+
+		for (int i = 0; i < args.length; i++) {
+			String arg = args[i];
+			if (arg.matches("{rtime:([0-9])*-([0-9])*}")) {
+				String[] range = arg.split(":")[1].split("-");
+				int low = Integer.parseInt(range[0]);
+				int high = Integer.parseInt(range[1]);
+
+				int random = (new Random().nextInt(high - low)) + low;
+				args[i] = String.valueOf(random);
+			}
+		}
+
+		return Utils.mergeStringArray(args);
 	}
 
 }
