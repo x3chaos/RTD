@@ -10,6 +10,7 @@ Actually in WikiCreole format, but saved as .txt to preserve text.
 ** Added command variables
 *** {world} - Name of player's current world
 *** {rplayer} - A random player on the server, including player
+*** {rtime:xx-xx} - A random time inside the given range (inclusive)
 ** Added "player=" and "console=" command prefixes 
 
 === 1.0.x
