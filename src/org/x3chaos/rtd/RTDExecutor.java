@@ -198,21 +198,26 @@ public class RTDExecutor implements CommandExecutor {
 	 * @return The command with {rtime:xx-xx} vars replaced
 	 */
 	private String rTime(String command) {
+		// TODO clean this method
 		String[] args = command.split(" ");
+		String[] resultArgs = new String[args.length];
 
 		for (int i = 0; i < args.length; i++) {
 			String arg = args[i];
+			String resultArg = args[i];
+			// Replace with random time if it matches
 			if (arg.matches("{rtime:([0-9])*-([0-9])*}")) {
 				String[] range = arg.split(":")[1].split("-");
 				int low = Integer.parseInt(range[0]);
 				int high = Integer.parseInt(range[1]);
 
 				int random = (new Random().nextInt(high - low)) + low;
-				args[i] = String.valueOf(random);
+				resultArg = String.valueOf(random);
 			}
+			resultArgs[i] = resultArg;
 		}
 
-		return Utils.mergeStringArray(args);
+		return Utils.mergeStringArray(resultArgs);
 	}
 
 }
