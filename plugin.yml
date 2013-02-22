@@ -2,6 +2,9 @@ main: org.x3chaos.rtd.RTDPlugin
 name: RollTheDice
 version: 1.0.1
 
+stable: 1.0.1
+beta: 1.1.0
+
 author: x3chaos
 description: Roll the dice for command-based outcomes.
 website: http://dev.bukkit.org/server-mods/rtd/
