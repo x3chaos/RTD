@@ -1,12 +1,23 @@
 ##
 #   RTD config.yml
 #   BukkitDev: http://dev.bukkit.org/server-mods/rtd/
-#
-#   Find a bug? Submit a ticket!
+##
+#	Options:
+#		- preferred-channel
+#			"stable" or "beta", WITHOUT quotes.
+#			Will warn the owner/admin when an update
+#			is available for the given channel.
 ##
 #   Available variables:
 #       - {player}
 #           Replaced with the player's display name
+#		- {rplayer}
+#			Replaced with a random player's name
+#		- {world}
+#			Replaced with the name of the player's world
+#		- {rtime:xx-xx}
+#			Replaced with a random number (time) within
+#			the given range (e.g. 0-1000), inclusively
 ##
 #   EXAMPLES:
 # outcomes:
@@ -20,10 +31,12 @@
 #   Important notes:
 #   - Variables must be inside {curly braces}!
 #   - Only the variables listed above are valid.
-#   - The leading slash ("/" in "/say") is optional.
+#   - The leading slash (e.g. "/" in "/say") is optional.
 #       => It is, however, recommended.
+##
 
 options:
+	preferred-channel: stable
     cooldown: 30
 
 outcomes:
