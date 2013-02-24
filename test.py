@@ -2,9 +2,9 @@
         Info for those viewing this file on GitHub:
         
     This file refers to ".\server\", a directory that is
-    intentionally ignored by Git. If you have forked the
-    repository and wish to build and test the plugin on
-    your own, just create the directory and place the
+    actually in the "testing" branch. If you have forked
+    the repository and wish to build and test the plugin
+    on your own, just create the directory and place the
     CraftBukkit jarfile inside it. MAKE SURE that the jar
     is named correctly: "craftbukkit.jar". If you wish to
     use a different name, just edit "test.bat" accordingly.
