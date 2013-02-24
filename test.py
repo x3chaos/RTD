@@ -52,5 +52,3 @@ for root, dirs, files in os.walk(jarloc):
             shutil.copy(jarloc + file, plugloc)
             break
 print('=> done')
-
-sys.exit(0)
