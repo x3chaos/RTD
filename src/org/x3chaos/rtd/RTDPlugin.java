@@ -33,7 +33,6 @@ public class RTDPlugin extends JavaPlugin {
 		this.getCommand("rtd").setExecutor(executor);
 
 		this.saveDefaultConfig();
-
 		allOutcomes = getAllOutcomes();
 	}
 
@@ -65,11 +64,10 @@ public class RTDPlugin extends JavaPlugin {
 
 	public long getLastRoll(Player player) {
 		List<MetadataValue> list = player.getMetadata("rtd-lastroll");
-		if (list == null)
-			return 0;
+		if (list == null) return 0;
 		for (MetadataValue value : list) {
-			if (value.getOwningPlugin().getName().equals(this.getName()))
-				return value.asLong();
+			if (value.getOwningPlugin().getName().equals(this.getName())) return value
+					.asLong();
 		}
 
 		return 0;
