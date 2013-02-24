@@ -14,6 +14,7 @@ pause
 goto :eof
 
 :SUCCESS
+echo.
 echo Done.
 echo.
 echo Starting test server...
