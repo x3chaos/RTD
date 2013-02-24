@@ -35,12 +35,12 @@ print('\n=> Initializing testing environment for {} build'.format(buildtype))
 # empty plugin dir
 print('\n=> Emptying plugin directory...')
 for root, dirs, files in os.walk(plugloc):
-    for dir in dirs:
-        print('==> Removing tree {}'.format(dir))
-        shutil.rmtree(dir)
     for file in files:
         print('==> Removing file {}'.format(file))
-        os.remove(plugloc + file)
+        os.remove(os.path.join(root, file))
+    for dir in dirs:
+        print('==> Removing tree {}'.format(dir))
+        shutil.rmtree(os.path.join(root, dir))
 print('=> done')
 
 # copy jar from jarloc to plugloc
