@@ -12,7 +12,6 @@
 """
 
 import os, glob, sys, shutil, argparse
-from subprocess import Popen
 
 # arg parser
 parser = argparse.ArgumentParser()
