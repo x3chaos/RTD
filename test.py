@@ -16,9 +16,9 @@ import os, glob, sys, shutil, argparse
 # arg parser
 parser = argparse.ArgumentParser()
 parser.add_argument('--buildtype', metavar='TYPE', help='the desired build type (default: beta)', default='beta')
-parser.add_argument('--jarloc', metavar='LOC', help='the directory containing the jarfile', default=".\jars\\")
-parser.add_argument('--pluginloc', metavar='PLG', help="the test server's plugin directory", default=".\server\plugins\\")
-parser.add_argument('--serverloc', metavar='SRV', help='the directory of the test server', default=".\server\\")
+parser.add_argument('--jarloc', metavar='LOC', help='the directory containing the jarfile', default="./jars/")
+parser.add_argument('--pluginloc', metavar='PLG', help="the test server's plugin directory", default="./server/plugins/")
+parser.add_argument('--serverloc', metavar='SRV', help='the directory of the test server', default="./server/")
 args = parser.parse_args()
 
 # define vars
