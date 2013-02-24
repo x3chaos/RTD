@@ -1,8 +1,10 @@
 <<<<<<< HEAD
 bin/
+server/
+.settings/
 =======
 *.class
 .classpath
 .project
-.settings/
+.pydevproject
 >>>>>>> 7c5f13d3d126dddc669d78087565fb26b2ce95be
