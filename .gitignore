@@ -8,8 +8,4 @@ server/
 .project
 .pydevproject
 todo.txt
-server/*.txt
-server/*.yml
-server/*.jar
-server/server.*
 >>>>>>> 7c5f13d3d126dddc669d78087565fb26b2ce95be
