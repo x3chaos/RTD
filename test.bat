@@ -5,7 +5,7 @@ set craftbukkit="craftbukkit.jar"
 
 :BUILD
 echo Initializing test server...
-python test.py
+python setup_env.py
 if %errorlevel%==0 goto SUCCESS else goto FAILURE
 
 :FAILURE
