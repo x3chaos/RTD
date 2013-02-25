@@ -13,8 +13,15 @@ def getCurrentBranch():
     return str(preprocessed, 'utf-8').rsplit()[0]
 
 # Commits changes. Required before switching branches.
-def commitChanges(prefix):
-    dummy()
+def commitChanges(message):
+    addall = 'git add .'
+    pAdd = Popen(addall, stdin=PIPE, stdout=PIPE, stderr=STDOUT)
+    addMsg, _ = pAdd.communicate()
+    commit = 'git commit -m \"Run test\"'
+    pCommit = Popen(commit, stdin=PIPE, stdout=PIPE, stderr=STDOUT)
+    commitMsg, _ = pCommit.communicate()
+    print(str(preprocessed, 'utf-8'))
+    return addMsg.returncode + commitMsg.returncode
 
 # Switches branches. If assigned to a var, returns the exit code
 def switchBranch(branch):
@@ -60,14 +67,17 @@ def main():
     
     print('=> Done')
     
-    # switch branch
+    # commit and switch branch
     print('==> Switching to branch \'worldfiles\'')
+    commitcode = commitChanges('Run test')
+    if not commitcode == 0:
+        print('==> *** Failed to commit! ***')
     returncode = switchBranch('worldfiles')
     if not returncode == 0:
         print('==> Ensure that your branch is fully up to date before copying the files')
         return
     
-    #clean up server folder
+    # clean up server folder
     print('\n=> Clearing server folder...')
     for root, dirs, files in os.walk('.\server\\', topdown=False):
         for file in files:
@@ -107,6 +117,12 @@ def main():
                 print('==> Removing temp directory {}'.format(dir))
                 shutil.rmtree(targ)
     print('=> Done')
+    
+    # commit changes to worldfiles branch
+    print('\n=> Committing changes before returning to master')
+    returncode = commitChanges('Update world files')
+    if not returncode == 0:
+        print('==> *** Failed to commit changes!')
     
     # return to master branch
     print('\n=> Returning to master branch')
