@@ -1,0 +1,47 @@
+2013-02-25 13:21:00 [INFO] Starting minecraft server version 1.4.7
+2013-02-25 13:21:00 [INFO] Loading properties
+2013-02-25 13:21:00 [WARNING] server.properties does not exist
+2013-02-25 13:21:00 [INFO] Generating new properties file
+2013-02-25 13:21:00 [INFO] Default game type: SURVIVAL
+2013-02-25 13:21:00 [INFO] Generating keypair
+2013-02-25 13:21:00 [INFO] Starting Minecraft server on *:25565
+2013-02-25 13:21:01 [INFO] This server is running CraftBukkit version git-Bukkit-1.4.7-R1.0-b2624jnks (MC: 1.4.7) (Implementing API version 1.4.7-R1.0)
+2013-02-25 13:21:01 [WARNING] Failed to load operators list: java.io.FileNotFoundException: .\ops.txt (The system cannot find the file specified)
+2013-02-25 13:21:01 [WARNING] Failed to load white-list: java.io.FileNotFoundException: .\white-list.txt (The system cannot find the file specified)
+2013-02-25 13:21:01 [INFO] Preparing level "world"
+2013-02-25 13:21:02 [INFO] Unable to find spawn biome
+2013-02-25 13:21:05 [INFO] Preparing start region for level 0 (Seed: -4966552174502370357)
+2013-02-25 13:21:07 [INFO] Preparing spawn area: 4%
+2013-02-25 13:21:08 [INFO] Preparing spawn area: 12%
+2013-02-25 13:21:09 [INFO] Preparing spawn area: 20%
+2013-02-25 13:21:10 [INFO] Preparing spawn area: 32%
+2013-02-25 13:21:11 [INFO] Preparing spawn area: 44%
+2013-02-25 13:21:12 [INFO] Preparing spawn area: 53%
+2013-02-25 13:21:13 [INFO] Preparing spawn area: 65%
+2013-02-25 13:21:14 [INFO] Preparing spawn area: 77%
+2013-02-25 13:21:15 [INFO] Preparing spawn area: 89%
+2013-02-25 13:21:16 [INFO] Preparing spawn area: 97%
+2013-02-25 13:21:16 [INFO] Preparing start region for level 1 (Seed: -4966552174502370357)
+2013-02-25 13:21:17 [INFO] Preparing spawn area: 4%
+2013-02-25 13:21:18 [INFO] Preparing spawn area: 20%
+2013-02-25 13:21:19 [INFO] Preparing spawn area: 32%
+2013-02-25 13:21:20 [INFO] Preparing spawn area: 48%
+2013-02-25 13:21:21 [INFO] Preparing spawn area: 57%
+2013-02-25 13:21:22 [INFO] Preparing spawn area: 69%
+2013-02-25 13:21:23 [INFO] Preparing spawn area: 81%
+2013-02-25 13:21:24 [INFO] Preparing spawn area: 97%
+2013-02-25 13:21:24 [INFO] Preparing start region for level 2 (Seed: -4966552174502370357)
+2013-02-25 13:21:25 [INFO] Preparing spawn area: 16%
+2013-02-25 13:21:26 [INFO] Preparing spawn area: 52%
+2013-02-25 13:21:27 [INFO] Preparing spawn area: 77%
+2013-02-25 13:21:28 [INFO] Done (26.393s)! For help, type "help" or "?"
+2013-02-25 13:21:55 [INFO] CONSOLE: Stopping the server..[m
+2013-02-25 13:21:55 [INFO] Stopping server
+2013-02-25 13:21:55 [WARNING] DSCT: socket closed
+2013-02-25 13:21:55 [INFO] Saving players
+2013-02-25 13:21:55 [INFO] Closing listening thread
+2013-02-25 13:21:55 [INFO] Saving worlds
+2013-02-25 13:21:55 [INFO] Saving chunks for level 'world'/Overworld
+2013-02-25 13:21:56 [INFO] Saving chunks for level 'world_nether'/Nether
+2013-02-25 13:21:56 [INFO] Saving chunks for level 'world_the_end'/The End
+2013-02-25 13:21:57 [INFO] Stopping server
