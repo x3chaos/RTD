@@ -1,5 +1,5 @@
 bin/
-server/
+server/world*
 
 .classpath
 .project
