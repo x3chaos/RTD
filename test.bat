@@ -1,5 +1,6 @@
 @echo off
 
+set defaultloc=%cd%
 set serverloc="./server/"
 set craftbukkit="craftbukkit.jar"
 
@@ -20,5 +21,10 @@ echo.
 echo Starting test server...
 echo.
 cd %serverloc%
-./run.bat %craftbukkit%
-if %errorlevel%==0 goto :eof else goto FAILURE
+call run.bat %craftbukkit%
+if %errorlevel%==0 goto COPY else goto FAILURE
+
+:COPY
+cd %defaultloc%
+python copy_world.py
+goto FAILURE
