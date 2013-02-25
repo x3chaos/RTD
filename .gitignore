@@ -1,7 +1,7 @@
 <<<<<<< HEAD
 bin/
 .settings/
-server/
+server/world*
 =======
 *.class
 .classpath
