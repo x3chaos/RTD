@@ -17,6 +17,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 public class RTDPlugin extends JavaPlugin {
@@ -37,11 +38,9 @@ public class RTDPlugin extends JavaPlugin {
 	}
 
 	public LinkedHashMap<String, List<String>> getAllOutcomes() {
-		FileConfiguration config = getConfig();
-		ConfigurationSection section = config
-				.getConfigurationSection("outcomes");
-		Set<String> keys = section.getKeys(false);
+		ConfigurationSection section = getOutcomeSection();
 
+		Set<String> keys = section.getKeys(false);
 		LinkedHashMap<String, List<String>> result = Maps.newLinkedHashMap();
 		for (String key : keys) {
 			List<String> values = section.getStringList(key);
@@ -51,10 +50,14 @@ public class RTDPlugin extends JavaPlugin {
 		return result;
 	}
 
+	public ConfigurationSection getOutcomeSection() {
+		return getConfig().getConfigurationSection("outcomes");
+	}
+
 	public Map.Entry<String, List<String>> getRandomOutcome() {
 		int random = new Random().nextInt(allOutcomes.size());
-		List<Entry<String, List<String>>> list = new ArrayList<Entry<String, List<String>>>(
-				allOutcomes.entrySet());
+		List<Entry<String, List<String>>> list = Lists.newArrayList();
+		list.addAll(allOutcomes.entrySet());
 		return list.get(random);
 	}
 
@@ -66,8 +69,8 @@ public class RTDPlugin extends JavaPlugin {
 		List<MetadataValue> list = player.getMetadata("rtd-lastroll");
 		if (list == null) return 0;
 		for (MetadataValue value : list) {
-			if (value.getOwningPlugin().getName().equals(this.getName())) return value
-					.asLong();
+			if (value.getOwningPlugin().getName().equals(this.getName()))
+				return value.asLong();
 		}
 
 		return 0;
