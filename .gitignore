@@ -4,3 +4,4 @@ server/world*
 .classpath
 .project
 .pydevproject
+server/*.log*
