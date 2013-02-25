@@ -2,12 +2,6 @@
 #   RTD config.yml
 #   BukkitDev: http://dev.bukkit.org/server-mods/rtd/
 ##
-#	Options:
-#		- preferred-channel
-#			"stable" or "beta", WITHOUT quotes.
-#			Will warn the owner/admin when an update
-#			is available for the given channel.
-##
 #   Available variables:
 #       - {player}
 #           Replaced with the player's display name
@@ -36,7 +30,6 @@
 ##
 
 options:
-	preferred-channel: stable
     cooldown: 30
 
 outcomes:
