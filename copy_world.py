@@ -17,11 +17,12 @@ def commitChanges(message):
     addall = 'git add .'
     pAdd = Popen(addall, stdin=PIPE, stdout=PIPE, stderr=STDOUT)
     addMsg, _ = pAdd.communicate()
+    print('Adding all: {}'.format(str(addMsg, 'utf-8')))
     commit = 'git commit -m \"Run test\"'
     pCommit = Popen(commit, stdin=PIPE, stdout=PIPE, stderr=STDOUT)
     commitMsg, _ = pCommit.communicate()
-    print(str(preprocessed, 'utf-8'))
-    return addMsg.returncode + commitMsg.returncode
+    print('Committing: {}'.format(str(commitMsg, 'utf-8')))
+    return pCommit.returncode
 
 # Switches branches. If assigned to a var, returns the exit code
 def switchBranch(branch):
