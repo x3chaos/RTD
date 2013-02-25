@@ -66,8 +66,9 @@ public class RTDExecutor implements CommandExecutor {
 			lastRoll /= 1000;
 
 			if (isCoolingDown(lastRoll)) {
-				player.sendMessage(ChatColor.RED
-						+ String.format(FAILURE_COOLDOWN, getTimeLeft(lastRoll)));
+				long left = getTimeLeft(lastRoll);
+				String message = String.format(FAILURE_COOLDOWN, left);
+				player.sendMessage(ChatColor.RED + message);
 				return true;
 			}
 		}
@@ -205,6 +206,7 @@ public class RTDExecutor implements CommandExecutor {
 		for (int i = 0; i < args.length; i++) {
 			String arg = args[i];
 			String resultArg = args[i];
+			
 			// Replace with random time if it matches
 			if (arg.matches("{rtime:([0-9])*-([0-9])*}")) {
 				String[] range = arg.split(":")[1].split("-");
