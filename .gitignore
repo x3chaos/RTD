@@ -2,6 +2,7 @@
 bin/
 .settings/
 server/world*
+server/plugins
 =======
 *.class
 .classpath
