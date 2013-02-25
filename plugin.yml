@@ -1,0 +1,25 @@
+main: org.x3chaos.rtd.RTDPlugin
+name: RollTheDice
+version: 1.0.1
+
+stable: 1.0.1
+beta: 1.1.0
+
+author: x3chaos
+description: Roll the dice for command-based outcomes.
+website: http://dev.bukkit.org/server-mods/rtd/
+
+prefix: RTD
+
+commands:
+    rtd:
+        description: Roll the dice!
+        aliases: [roll]
+        permission: rtd.rtd
+        permission-message: You don't have permission to roll the dice.
+        usage: &cJust use &r/rtd&c to roll the dice.
+
+permissions:
+    rtd.rtd:
+        description: Allows you to roll the dice.
+        default: true
