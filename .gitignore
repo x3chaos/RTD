@@ -1,6 +1,7 @@
 <<<<<<< HEAD
 bin/
 .settings/
+server/
 =======
 *.class
 .classpath
