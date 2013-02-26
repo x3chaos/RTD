@@ -1,9 +1,9 @@
 bin/
 server/world*
-server/plugins/*.jar
+server/plugins
 
 .classpath
 .project
 .pydevproject
-server/*.log*
+server/*.log
 *.lnk
