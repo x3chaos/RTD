@@ -17,7 +17,6 @@ public class RTDExecutor implements CommandExecutor {
 	private final RTDPlugin main;
 
 	/* Failure messages */
-	private static final String FAILURE_CONSOLE = "This command is only available to players.";
 	private static final String FAILURE_COOLDOWN = "You cannot roll for another %d seconds.";
 
 	/* Error messages */
@@ -42,9 +41,13 @@ public class RTDExecutor implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String lbl,
 			String[] args) {
-		// Return true with no action if the console is the sender
+		// Get the outcome before anything else
+		Entry<String, List<String>> outcome = main.getRandomOutcome();
+		String outcomeName = outcome.getKey();
+
+		// Echo outcome name if console sender
 		if (!(sender instanceof Player)) {
-			sender.sendMessage(FAILURE_CONSOLE);
+			sender.sendMessage("Outcome: " + outcomeName);
 			return true;
 		}
 
@@ -74,8 +77,7 @@ public class RTDExecutor implements CommandExecutor {
 		}
 
 		// Iterate through and execute each command
-		Entry<String, List<String>> outcome = main.getRandomOutcome();
-		String outcomeName = outcome.getKey();
+		// List<String> commands = outcome.getValue();
 		List<String> commands = outcome.getValue();
 		for (int i = 0; i < commands.size(); i++) {
 			String command = commands.get(i);
@@ -99,8 +101,31 @@ public class RTDExecutor implements CommandExecutor {
 			}
 
 			// Replace {rtime:xx-xx}
+			// TODO CLEAN THIS MOTHERFUCKER
 			if (command.contains("{rtime:")) {
-				command = rTime(command);
+				String[] cmdArgs = command.split(" ");
+				String[] newCmd = new String[cmdArgs.length];
+				for (int w = 0; w < cmdArgs.length; w++) {
+					String arg = cmdArgs[w];
+					if (arg.matches("\\{rtime:\\d{1,5}-\\d{1,5}\\}")) {
+						String rStr = arg.split(":")[1];
+						String[] rRaw = rStr.substring(0, rStr.length() - 1)
+								.split("-");
+
+						int[] range = new int[rRaw.length];
+						for (int r = 0; r < rRaw.length; r++) {
+							range[r] = Integer.parseInt(rRaw[r]);
+						}
+
+						int min = Utils.getMin(range, 0);
+						int max = Utils.getMax(range, 24000);
+
+						newCmd[w] = getRandomTime(min, max) + "";
+					} else {
+						newCmd[w] = cmdArgs[w];
+					}
+				}
+				command = Utils.mergeStringArray(newCmd);
 			}
 
 			// Determine command type (default: console)
@@ -193,33 +218,8 @@ public class RTDExecutor implements CommandExecutor {
 		return players[randomIndex].getDisplayName();
 	}
 
-	/**
-	 * Returns the original command, with {rtime} vars replaced
-	 * @param command The original command
-	 * @return The command with {rtime:xx-xx} vars replaced
-	 */
-	private String rTime(String command) {
-		// TODO clean this method
-		String[] args = command.split(" ");
-		String[] resultArgs = new String[args.length];
-
-		for (int i = 0; i < args.length; i++) {
-			String arg = args[i];
-			String resultArg = args[i];
-			
-			// Replace with random time if it matches
-			if (arg.matches("{rtime:([0-9])*-([0-9])*}")) {
-				String[] range = arg.split(":")[1].split("-");
-				int low = Integer.parseInt(range[0]);
-				int high = Integer.parseInt(range[1]);
-
-				int random = (new Random().nextInt(high - low)) + low;
-				resultArg = String.valueOf(random);
-			}
-			resultArgs[i] = resultArg;
-		}
-
-		return Utils.mergeStringArray(resultArgs);
+	private int getRandomTime(int min, int max) {
+		return (new Random().nextInt(max - min)) + min;
 	}
 
 }
