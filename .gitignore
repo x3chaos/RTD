@@ -1,5 +1,6 @@
 bin/
 server/world*
+server/plugins/*.jar
 
 .classpath
 .project
