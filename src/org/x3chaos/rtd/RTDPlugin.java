@@ -33,6 +33,8 @@ public class RTDPlugin extends JavaPlugin {
 
 		this.saveDefaultConfig();
 		allOutcomes = getAllOutcomes();
+		
+		log.info(getName() + " enabled.");
 	}
 
 	public LinkedHashMap<String, List<String>> getAllOutcomes() {
