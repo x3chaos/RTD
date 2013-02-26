@@ -45,3 +45,52 @@
 2013-02-25 13:21:56 [INFO] Saving chunks for level 'world_nether'/Nether
 2013-02-25 13:21:56 [INFO] Saving chunks for level 'world_the_end'/The End
 2013-02-25 13:21:57 [INFO] Stopping server
+2013-02-25 19:28:01 [INFO] Starting minecraft server version 1.4.7
+2013-02-25 19:28:01 [INFO] Loading properties
+2013-02-25 19:28:01 [INFO] Default game type: SURVIVAL
+2013-02-25 19:28:01 [INFO] Generating keypair
+2013-02-25 19:28:02 [INFO] Starting Minecraft server on *:25565
+2013-02-25 19:28:02 [INFO] This server is running CraftBukkit version git-Bukkit-1.4.7-R1.0-b2624jnks (MC: 1.4.7) (Implementing API version 1.4.7-R1.0)
+2013-02-25 19:28:03 [INFO] [RTD] Loading RollTheDice v1.0.1
+2013-02-25 19:28:03 [INFO] Preparing level "world"
+2013-02-25 19:28:03 [INFO] Preparing start region for level 0 (Seed: -4966552174502370357)
+2013-02-25 19:28:04 [INFO] Preparing spawn area: 61%
+2013-02-25 19:28:04 [INFO] Preparing start region for level 1 (Seed: -4966552174502370357)
+2013-02-25 19:28:05 [INFO] Preparing spawn area: 52%
+2013-02-25 19:28:06 [INFO] [RTD] Enabling RollTheDice v1.0.1
+2013-02-25 19:28:06 [INFO] Server permissions file permissions.yml is empty, ignoring it
+2013-02-25 19:28:06 [INFO] Done (3.011s)! For help, type "help" or "?"
+2013-02-25 19:28:09 [INFO] CONSOLE: Stopping the server..[m
+2013-02-25 19:28:09 [INFO] Stopping server
+2013-02-25 19:28:09 [INFO] [RTD] Disabling RollTheDice v1.0.1
+2013-02-25 19:28:09 [WARNING] DSCT: socket closed
+2013-02-25 19:28:09 [INFO] Saving players
+2013-02-25 19:28:09 [INFO] Closing listening thread
+2013-02-25 19:28:09 [INFO] Saving worlds
+2013-02-25 19:28:09 [INFO] Saving chunks for level 'world'/Overworld
+2013-02-25 19:28:10 [INFO] Saving chunks for level 'world_the_end'/The End
+2013-02-25 19:28:10 [INFO] Stopping server
+2013-02-25 19:29:04 [INFO] Starting minecraft server version 1.4.7
+2013-02-25 19:29:04 [INFO] Loading properties
+2013-02-25 19:29:04 [INFO] Default game type: SURVIVAL
+2013-02-25 19:29:04 [INFO] Generating keypair
+2013-02-25 19:29:04 [INFO] Starting Minecraft server on *:25565
+2013-02-25 19:29:04 [INFO] This server is running CraftBukkit version git-Bukkit-1.4.7-R1.0-b2624jnks (MC: 1.4.7) (Implementing API version 1.4.7-R1.0)
+2013-02-25 19:29:05 [INFO] [RTD] Loading RollTheDice v1.0.1
+2013-02-25 19:29:05 [INFO] Preparing level "world"
+2013-02-25 19:29:05 [INFO] Preparing start region for level 0 (Seed: -4966552174502370357)
+2013-02-25 19:29:06 [INFO] Preparing spawn area: 32%
+2013-02-25 19:29:06 [INFO] Preparing start region for level 1 (Seed: -4966552174502370357)
+2013-02-25 19:29:07 [INFO] Preparing spawn area: 52%
+2013-02-25 19:29:07 [INFO] [RTD] Enabling RollTheDice v1.0.1
+2013-02-25 19:29:07 [INFO] Server permissions file permissions.yml is empty, ignoring it
+2013-02-25 19:29:07 [INFO] Done (2.487s)! For help, type "help" or "?"
+2013-02-25 19:29:09 [INFO] CONSOLE: Stopping the server..[m
+2013-02-25 19:29:09 [INFO] Stopping server
+2013-02-25 19:29:09 [INFO] [RTD] Disabling RollTheDice v1.0.1
+2013-02-25 19:29:09 [WARNING] DSCT: socket closed
+2013-02-25 19:29:09 [INFO] Closing listening thread
+2013-02-25 19:29:09 [INFO] Saving players
+2013-02-25 19:29:09 [INFO] Saving worlds
+2013-02-25 19:29:09 [INFO] Saving chunks for level 'world'/Overworld
+2013-02-25 19:29:09 [INFO] Saving chunks for level 'world_the_end'/The End
