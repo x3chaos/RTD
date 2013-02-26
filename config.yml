@@ -1,31 +1,26 @@
 ##
-#   RTD config.yml
-#   BukkitDev: http://dev.bukkit.org/server-mods/rtd/
+# Config for RTD 1.0.1 (http://dev.bukkit.org/server-mods/rtd/)
+# Config suggestions from Zachary DuBois (https://accountproductions.com/)
+#
+#   Default config created for Bukkit without plugins.
+#   To avoid command conflicts, make sure that the command is
+#   exactly as it would be entered into the console or chat.
 ##
 #   Available variables:
-#       - {player}
-#           Replaced with the player's display name
+#   - {player}
+#     Replaced with the player's display name
 #		- {rplayer}
 #			Replaced with a random player's name
 #		- {world}
 #			Replaced with the name of the player's world
 #		- {rtime:xx-xx}
-#			Replaced with a random number (time) within
-#			the given range (e.g. 0-1000), inclusively
-##
-#   EXAMPLES:
-# outcomes:
-#     diamond:
-#     - console=/give {player} diamond
-#     - console=/say {player} rolled for a diamond!
-#     death:
-#     - player=/kill
-#     - console=/say {player} rolled for DEATH
+#			Replaced with a random number (time) within the given range, inclusively
+#     e.g. {rtime:0-300} or {rtime:10-20}
 ##
 #   Important notes:
-#   - Variables must be inside {curly braces}!
-#   - Only the variables listed above are valid.
-#   - The leading slash (e.g. "/" in "/say") is optional.
+#   => Variables must be inside {curly braces}!
+#   => Only the variables listed above are valid.
+#   => The leading slash (e.g. "/" in "/say") is optional.
 #       => It is, however, recommended.
 ##
 
@@ -35,7 +30,12 @@ options:
 outcomes:
     diamond:
         - console=/give {player} 264
-        - console=/say {player} rolled for a diamond!
+        - console=/say {player} rolled diamond!
     death:
         - player=/kill
-        - console=/say {player} rolled for DEATH!
+        - console=/say {player} rolled DEATH!
+    light:
+        - console=/give {player} 50 64
+        - console=/give {player} 89 64
+        - console=/say {player} rolled light!
+    
