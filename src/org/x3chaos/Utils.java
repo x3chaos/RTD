@@ -14,18 +14,18 @@ public class Utils {
 		return splitStringArray(array, 0);
 	}
 
-	public static int getMax(int[] range) {
+	public static int getMax(int[] range, int cap) {
 		int result = 0;
 		for (int i : range)
-			if (i > result) result = i;
+			if (i > result && i <= cap) result = i;
 
 		return result;
 	}
 
-	public static int getMin(int[] range) {
-		int result = 0;
+	public static int getMin(int[] range, int cap) {
+		int result = cap;
 		for (int i : range)
-			if (i < result && i >= 0) result = i;
+			if (i < result && i >= cap) result = i;
 
 		return result;
 	}
