@@ -38,4 +38,5 @@ outcomes:
         - console=/give {player} 50 64
         - console=/give {player} 89 64
         - console=/say {player} rolled light!
-    
+    rtime:
+        - console=/say Random time 0-100! {rtime:0-100}
