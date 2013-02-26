@@ -6,3 +6,4 @@ server/plugins/*.jar
 .project
 .pydevproject
 server/*.log*
+*.lnk
