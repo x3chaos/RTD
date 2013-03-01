@@ -1,5 +1,7 @@
 package org.x3chaos;
 
+import java.util.Random;
+
 public class Utils {
 
 	public static String splitStringArray(String[] array, int index) {
@@ -28,5 +30,9 @@ public class Utils {
 			if (i < result && i >= cap) result = i;
 
 		return result;
+	}
+	
+	public static int getRandomTime(int min, int max) {
+		return (new Random().nextInt(max - min)) + min;
 	}
 }
