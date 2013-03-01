@@ -12,6 +12,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.x3chaos.Utils;
+import org.x3chaos.rtd.exception.InvalidOutcomeException;
 
 public class RTDExecutor implements CommandExecutor {
 	private final RTDPlugin main;
@@ -39,8 +40,7 @@ public class RTDExecutor implements CommandExecutor {
 	}
 
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String lbl,
-			String[] args) {
+	public boolean onCommand(CommandSender sender, Command cmd, String lbl, String[] args) {
 		// Get the outcome before anything else
 		Entry<String, List<String>> outcome = main.getRandomOutcome();
 		String outcomeName = outcome.getKey();
@@ -101,31 +101,14 @@ public class RTDExecutor implements CommandExecutor {
 			}
 
 			// Replace {rtime:xx-xx}
-			// TODO CLEAN THIS MOTHERFUCKER
 			if (command.contains("{rtime:")) {
-				String[] cmdArgs = command.split(" ");
-				String[] newCmd = new String[cmdArgs.length];
-				for (int w = 0; w < cmdArgs.length; w++) {
-					String arg = cmdArgs[w];
-					if (arg.matches("\\{rtime:\\d{1,5}-\\d{1,5}\\}")) {
-						String rStr = arg.split(":")[1];
-						String[] rRaw = rStr.substring(0, rStr.length() - 1)
-								.split("-");
-
-						int[] range = new int[rRaw.length];
-						for (int r = 0; r < rRaw.length; r++) {
-							range[r] = Integer.parseInt(rRaw[r]);
-						}
-
-						int min = Utils.getMin(range, 0);
-						int max = Utils.getMax(range, 24000);
-
-						newCmd[w] = getRandomTime(min, max) + "";
-					} else {
-						newCmd[w] = cmdArgs[w];
-					}
+				try {
+					command = doRandomTime(command);
+				} catch (InvalidOutcomeException ex) {
+					ex.setOutcome(outcome.getKey());
+					log.severe(ex.toString());
+					command = "";
 				}
-				command = Utils.mergeStringArray(newCmd);
 			}
 
 			// Determine command type (default: console)
@@ -139,8 +122,8 @@ public class RTDExecutor implements CommandExecutor {
 			if (command.startsWith("/")) command = command.substring(1);
 
 			// Execute command
-			if (typeOfCommand.equals("player")) success = server
-					.dispatchCommand(sender, command);
+			log.info("Command: /" + command);
+			if (typeOfCommand.equals("player")) success = server.dispatchCommand(sender, command);
 			else success = server.dispatchCommand(console, command);
 
 			// If command returned false, log syntax error
@@ -218,8 +201,56 @@ public class RTDExecutor implements CommandExecutor {
 		return players[randomIndex].getDisplayName();
 	}
 
-	private int getRandomTime(int min, int max) {
-		return (new Random().nextInt(max - min)) + min;
+	/**
+	 * Does the random time replacement. In a separate method because I hate nesting for loops.
+	 * @param in the command input
+	 * @return the command output
+	 * @throws InvalidOutcomeException if parsing the rtime fails
+	 */
+	private String doRandomTime(String in) throws InvalidOutcomeException {
+		String result = "";
+		String[] split = in.split(" ");
+
+		for (int i = 0; i < split.length; i++) {
+			String arg = split[i];
+			String addition = "";
+
+			if (arg.matches("\\{rtime:(\\d{1,5})-(\\d{1,5})\\}")) {
+
+				try {
+					// parse the argument
+					addition = parseTimeArg(arg);
+				} catch (NumberFormatException ex) {
+					// create the exception, pass it to the block that calls doRandomTime()
+					throw new InvalidOutcomeException("invalid outcome variable " + arg);
+				}
+
+			} else {
+				// bypass the argument
+				addition = arg;
+			}
+
+			result += addition + " ";
+		}
+
+		return result.trim();
 	}
 
+	/**
+	 * The actual rtime argument parsing method
+	 * @param arg the argument to parse
+	 * @return the time, parsed and converted to String
+	 * @throws NumberFormatException
+	 */
+	private String parseTimeArg(String arg) throws NumberFormatException {
+		String result = "";
+		String[] rangeRaw = arg.split(":")[1].split("-");
+
+		int[] range = new int[2];
+		range[0] = Integer.parseInt(rangeRaw[0]);
+		range[1] = rangeRaw[1].endsWith("}") ? Integer.parseInt(rangeRaw[1].substring(0,
+				rangeRaw[1].indexOf("}"))) : Integer.parseInt(rangeRaw[1]);
+
+		return result;
+	}
 }
