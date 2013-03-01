@@ -215,7 +215,7 @@ public class RTDExecutor implements CommandExecutor {
 			String arg = split[i];
 			String addition = "";
 
-			if (arg.matches("\\{rtime:(\\d{1,5})-(\\d{1,5})\\}")) {
+			if (arg.matches("\\{rtime:\\d{1,5}-\\d{1,5}\\}")) {
 
 				try {
 					// parse the argument
