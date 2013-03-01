@@ -243,14 +243,13 @@ public class RTDExecutor implements CommandExecutor {
 	 * @throws NumberFormatException
 	 */
 	private String parseTimeArg(String arg) throws NumberFormatException {
-		String result = "";
 		String[] rangeRaw = arg.split(":")[1].split("-");
 
-		int[] range = new int[2];
-		range[0] = Integer.parseInt(rangeRaw[0]);
-		range[1] = rangeRaw[1].endsWith("}") ? Integer.parseInt(rangeRaw[1].substring(0,
+		int min, max;
+		min = Integer.parseInt(rangeRaw[0]);
+		max = rangeRaw[1].endsWith("}") ? Integer.parseInt(rangeRaw[1].substring(0,
 				rangeRaw[1].indexOf("}"))) : Integer.parseInt(rangeRaw[1]);
 
-		return result;
+		return String.valueOf(Utils.getRandomTime(min, max));
 	}
 }
