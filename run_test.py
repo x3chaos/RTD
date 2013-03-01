@@ -6,7 +6,7 @@ from subprocess import Popen
 parser = argparse.ArgumentParser()
 parser.add_argument('-quiet', help='No verbose output will be printed.', action='store_true')
 parser.add_argument('--serverloc', metavar='loc', help='The location of the server folder. \
-                    This can either be absolute or relative to the workspace root.', default='.\server\\')
+                    This can either be absolute or relative to the workspace root.', default='.\.server\\')
 parser.add_argument('--pluginloc', metavar='loc', help='The name of the Plugins folder inside \
                     the server folder. This is not a filepath.', default='plugins')
 parser.add_argument('--exportloc', metavar='loc', help='The location of the JAR exports \
@@ -75,4 +75,4 @@ for root, dirs, files in os.walk(exportloc):
 disp('=> Done')
 
 # finish up
-print('Done')
+print('Done\n')
