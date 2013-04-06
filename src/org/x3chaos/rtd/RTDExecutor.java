@@ -84,7 +84,7 @@ public class RTDExecutor implements CommandExecutor {
 
 			// Replace {player}
 			if (command.contains("{player}")) {
-				String name = player.getDisplayName();
+				String name = player.getName();
 				command = command.replace("{player}", name);
 			}
 
